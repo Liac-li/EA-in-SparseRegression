@@ -5,6 +5,7 @@ import numpy as np
 
 
 class DataLoader(object):
+
     def __init__(self, data_folder):
         self.path = data_folder
         self.data_pool = {
@@ -18,7 +19,7 @@ class DataLoader(object):
     def coder(s):
         if isinstance(s, int) or isinstance(s, float):
             return s
-        
+
         if s.isdigit():
             return s
         else:
@@ -36,6 +37,8 @@ class DataLoader(object):
 
         pd = pandas.read_csv(data_path)
         pd[pd.columns[-1]] = pd[pd.columns[-1]].apply(self.coder)
+        pd.fillna(0)
+
         x = pd[pd.columns[:-2]].to_numpy(dtype=np.float32)
         y = pd[pd.columns[-1]].to_numpy(dtype=np.float32)
         y = y[..., np.newaxis]
