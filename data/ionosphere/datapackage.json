@@ -1,0 +1,725 @@
+{
+  "bytes": 424843,
+  "datahub": {
+    "created": "2018-08-22T01:37:07.498960",
+    "findability": "published",
+    "flowid": "machine-learning/ionosphere/2",
+    "modified": "2018-09-06T12:35:11.828118",
+    "owner": "machine-learning",
+    "ownerid": "machine-learning"
+  },
+  "description": "The resources for this dataset can be found at https://www.openml.org/d/59\n\nAuthor: Space Physics Gr",
+  "hash": "85168e82eede2e701b2ef05800abfec1",
+  "id": "machine-learning/ionosphere",
+  "licenses": [
+    {
+      "name": "ODC-PDDL",
+      "path": "http://opendatacommons.org/licenses/pddl/",
+      "title": "Open Data Commons Public Domain Dedication and License"
+    }
+  ],
+  "name": "ionosphere",
+  "resources": [
+    {
+      "bytes": 80455,
+      "datahub": {
+        "type": "original"
+      },
+      "dpp:streamedFrom": "https://s3.amazonaws.com/rawstore.datahub.io/23dd3c8b5693e2848901fd1a0248ef42.arff",
+      "encoding": "ISO-8859-1",
+      "format": "arff",
+      "name": "ionosphere_arff",
+      "path": "archive/ionosphere_arff.arff",
+      "pathType": "local",
+      "profile": "data-resource"
+    },
+    {
+      "bytes": 76609,
+      "datahub": {
+        "type": "original"
+      },
+      "dialect": {
+        "delimiter": ",",
+        "quoteChar": "\""
+      },
+      "dpp:streamedFrom": "https://s3.amazonaws.com/rawstore.datahub.io/c1fa59429fc500c5809c38213f91debc.csv",
+      "encoding": "ISO-8859-2",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "ionosphere_original",
+      "path": "archive/ionosphere.csv",
+      "pathType": "local",
+      "profile": "data-resource",
+      "schema": {
+        "fields": [
+          {
+            "format": "default",
+            "name": "a01",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a02",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a03",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a04",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a05",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a06",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a07",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a08",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a09",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a10",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a11",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a12",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a13",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a14",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a15",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a16",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a17",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a18",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a19",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a20",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a21",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a22",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a23",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a24",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a25",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a26",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a27",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a28",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a29",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a30",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a31",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a32",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a33",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a34",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "class",
+            "type": "string"
+          }
+        ],
+        "missingValues": [
+          ""
+        ]
+      }
+    },
+    {
+      "bytes": 969,
+      "datahub": {
+        "type": "derived/report"
+      },
+      "description": "Validation report for tabular data",
+      "dpp:streamedFrom": "/tmp/tmpzuoyukj2/machine-learning/ionosphere/validation_report/data/a29990aa2fabf53bb87332ec182f71d8/validation_report.json",
+      "format": "json",
+      "hash": "a29990aa2fabf53bb87332ec182f71d8",
+      "name": "validation_report",
+      "path": "data/validation_report.json",
+      "profile": "data-resource"
+    },
+    {
+      "bytes": 76961,
+      "datahub": {
+        "derivedFrom": [
+          "ionosphere"
+        ],
+        "type": "derived/csv"
+      },
+      "delimiter": ",",
+      "dialect": {
+        "delimiter": ",",
+        "doubleQuote": true,
+        "lineTerminator": "\r\n",
+        "quoteChar": "\"",
+        "skipInitialSpace": false
+      },
+      "dpp:streamedFrom": "/tmp/tmpzuoyukj2/machine-learning/ionosphere/ionosphere_csv/data/c1fa59429fc500c5809c38213f91debc/ionosphere_csv.csv",
+      "encoding": "utf-8",
+      "format": "csv",
+      "hash": "c1fa59429fc500c5809c38213f91debc",
+      "mediatype": "text/csv",
+      "name": "ionosphere_csv",
+      "path": "data/ionosphere_csv.csv",
+      "pathType": "local",
+      "profile": "data-resource",
+      "quotechar": "\"",
+      "rowcount": 351,
+      "schema": {
+        "fields": [
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a01",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a02",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a03",
+            "type": "any"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a04",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a05",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a06",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a07",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a08",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a09",
+            "type": "any"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a10",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a11",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a12",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a13",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a14",
+            "type": "any"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a15",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a16",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a17",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a18",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a19",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a20",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a21",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a22",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a23",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a24",
+            "type": "any"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a25",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a26",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a27",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a28",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a29",
+            "type": "any"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a30",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a31",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a32",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a33",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "a34",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "class",
+            "type": "string"
+          }
+        ],
+        "missingValues": [
+          ""
+        ]
+      },
+      "signed": true
+    },
+    {
+      "bytes": 188360,
+      "datahub": {
+        "derivedFrom": [
+          "ionosphere"
+        ],
+        "type": "derived/json"
+      },
+      "delimiter": ",",
+      "dialect": {
+        "delimiter": ",",
+        "quoteChar": "\""
+      },
+      "dpp:streamedFrom": "/tmp/tmpzuoyukj2/machine-learning/ionosphere/ionosphere_json/data/f80aa2ba936ddc8d85896f6310ec5e70/ionosphere_json.json",
+      "encoding": "utf-8",
+      "format": "json",
+      "hash": "f80aa2ba936ddc8d85896f6310ec5e70",
+      "mediatype": "text/csv",
+      "name": "ionosphere_json",
+      "path": "data/ionosphere_json.json",
+      "pathType": "local",
+      "profile": "data-resource",
+      "quotechar": "\"",
+      "rowcount": 351,
+      "schema": {
+        "fields": [
+          {
+            "format": "default",
+            "name": "a01",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a02",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a03",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a04",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a05",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a06",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a07",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a08",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a09",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a10",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a11",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a12",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a13",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a14",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a15",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a16",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a17",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a18",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a19",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a20",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a21",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a22",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a23",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a24",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a25",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a26",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a27",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a28",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a29",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "a30",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a31",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a32",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a33",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "a34",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "class",
+            "type": "string"
+          }
+        ],
+        "missingValues": [
+          ""
+        ]
+      },
+      "signed": true
+    },
+    {
+      "bytes": 1489,
+      "dpp:streamedFrom": "/tmp/tmpnh7yvo9b/README.md",
+      "format": "md",
+      "name": "readme",
+      "path": "README.md"
+    }
+  ],
+  "title": "Ionosphere"
+}

@@ -1,0 +1,1187 @@
+{
+  "bytes": 576838,
+  "datahub": {
+    "created": "2018-08-22T01:50:34.840564",
+    "findability": "published",
+    "flowid": "machine-learning/sonar/2",
+    "modified": "2018-09-06T12:48:06.384716",
+    "owner": "machine-learning",
+    "ownerid": "machine-learning"
+  },
+  "description": "The resources for this dataset can be found at https://www.openml.org/d/40\n\nAuthor:   \nSource: Unkno",
+  "hash": "42f8300ebad40b9c81019ad5bf8d83fa",
+  "id": "machine-learning/sonar",
+  "licenses": [
+    {
+      "name": "ODC-PDDL",
+      "path": "http://opendatacommons.org/licenses/pddl/",
+      "title": "Open Data Commons Public Domain Dedication and License"
+    }
+  ],
+  "name": "sonar",
+  "resources": [
+    {
+      "bytes": 94706,
+      "datahub": {
+        "type": "original"
+      },
+      "dpp:streamedFrom": "https://s3.amazonaws.com/rawstore.datahub.io/3ab630fbbfe25ab48b9bb47ce5759203.arff",
+      "encoding": "ISO-8859-1",
+      "format": "arff",
+      "name": "sonar_arff",
+      "path": "archive/sonar_arff.arff",
+      "pathType": "local",
+      "profile": "data-resource"
+    },
+    {
+      "bytes": 87277,
+      "datahub": {
+        "type": "original"
+      },
+      "dialect": {
+        "delimiter": ",",
+        "quoteChar": "\""
+      },
+      "dpp:streamedFrom": "https://s3.amazonaws.com/rawstore.datahub.io/71dc2b4593995a5a1cff52824511fc61.csv",
+      "encoding": "ISO-8859-1",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "sonar_original",
+      "path": "archive/sonar.csv",
+      "pathType": "local",
+      "profile": "data-resource",
+      "schema": {
+        "fields": [
+          {
+            "format": "default",
+            "name": "attribute_1",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_2",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_3",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_4",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_5",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_6",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_7",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_8",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_9",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_10",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_11",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_12",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_13",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_14",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_15",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_16",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_17",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_18",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_19",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_20",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_21",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_22",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_23",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_24",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_25",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_26",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_27",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_28",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_29",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_30",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_31",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_32",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_33",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_34",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_35",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_36",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_37",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_38",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_39",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_40",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_41",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_42",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_43",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_44",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_45",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_46",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_47",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_48",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_49",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_50",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_51",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_52",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_53",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_54",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_55",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_56",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_57",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_58",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_59",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_60",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "Class",
+            "type": "string"
+          }
+        ],
+        "missingValues": [
+          ""
+        ]
+      }
+    },
+    {
+      "bytes": 1373,
+      "datahub": {
+        "type": "derived/report"
+      },
+      "description": "Validation report for tabular data",
+      "dpp:streamedFrom": "/tmp/tmpl7zuhrol/machine-learning/sonar/validation_report/data/40e8b9bd81b4e2b71b9fc73fbf0de844/validation_report.json",
+      "format": "json",
+      "hash": "40e8b9bd81b4e2b71b9fc73fbf0de844",
+      "name": "validation_report",
+      "path": "data/validation_report.json",
+      "profile": "data-resource"
+    },
+    {
+      "bytes": 87486,
+      "datahub": {
+        "derivedFrom": [
+          "sonar"
+        ],
+        "type": "derived/csv"
+      },
+      "delimiter": ",",
+      "dialect": {
+        "delimiter": ",",
+        "doubleQuote": true,
+        "lineTerminator": "\r\n",
+        "quoteChar": "\"",
+        "skipInitialSpace": false
+      },
+      "dpp:streamedFrom": "/tmp/tmpl7zuhrol/machine-learning/sonar/sonar_csv/data/71dc2b4593995a5a1cff52824511fc61/sonar_csv.csv",
+      "encoding": "utf-8",
+      "format": "csv",
+      "hash": "71dc2b4593995a5a1cff52824511fc61",
+      "mediatype": "text/csv",
+      "name": "sonar_csv",
+      "path": "data/sonar_csv.csv",
+      "pathType": "local",
+      "profile": "data-resource",
+      "quotechar": "\"",
+      "rowcount": 208,
+      "schema": {
+        "fields": [
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_1",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_2",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_3",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_4",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_5",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_6",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_7",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_8",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_9",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_10",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_11",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_12",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_13",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_14",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_15",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_16",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_17",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_18",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_19",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_20",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_21",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_22",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_23",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_24",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_25",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_26",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_27",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_28",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_29",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_30",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_31",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_32",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_33",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_34",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_35",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_36",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_37",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_38",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_39",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_40",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_41",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_42",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_43",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_44",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_45",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_46",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_47",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_48",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_49",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_50",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_51",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_52",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_53",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_54",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_55",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_56",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_57",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_58",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_59",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "attribute_60",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "Class",
+            "type": "string"
+          }
+        ],
+        "missingValues": [
+          ""
+        ]
+      },
+      "signed": true
+    },
+    {
+      "bytes": 299727,
+      "datahub": {
+        "derivedFrom": [
+          "sonar"
+        ],
+        "type": "derived/json"
+      },
+      "delimiter": ",",
+      "dialect": {
+        "delimiter": ",",
+        "quoteChar": "\""
+      },
+      "dpp:streamedFrom": "/tmp/tmpl7zuhrol/machine-learning/sonar/sonar_json/data/7feafbd43d611f39db6234d0792581d0/sonar_json.json",
+      "encoding": "utf-8",
+      "format": "json",
+      "hash": "7feafbd43d611f39db6234d0792581d0",
+      "mediatype": "text/csv",
+      "name": "sonar_json",
+      "path": "data/sonar_json.json",
+      "pathType": "local",
+      "profile": "data-resource",
+      "quotechar": "\"",
+      "rowcount": 208,
+      "schema": {
+        "fields": [
+          {
+            "format": "default",
+            "name": "attribute_1",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_2",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_3",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_4",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_5",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_6",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_7",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_8",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_9",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_10",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_11",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_12",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_13",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_14",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_15",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_16",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_17",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_18",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_19",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_20",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_21",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_22",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_23",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_24",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_25",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_26",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_27",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_28",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_29",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_30",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_31",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_32",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_33",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_34",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_35",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_36",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_37",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_38",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_39",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_40",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_41",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_42",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_43",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_44",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_45",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_46",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_47",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_48",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_49",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_50",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_51",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_52",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_53",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_54",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_55",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_56",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_57",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_58",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_59",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "attribute_60",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "Class",
+            "type": "string"
+          }
+        ],
+        "missingValues": [
+          ""
+        ]
+      },
+      "signed": true
+    },
+    {
+      "bytes": 6269,
+      "dpp:streamedFrom": "/tmp/tmpbykh15bg/README.md",
+      "format": "md",
+      "name": "readme",
+      "path": "README.md"
+    }
+  ],
+  "title": "Sonar"
+}
