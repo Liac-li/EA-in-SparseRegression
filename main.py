@@ -1,4 +1,3 @@
-from sqlalchemy import true
 from utils import DataLoader
 from modules import POSS
 

@@ -1,7 +1,9 @@
 import math
+from matplotlib.pyplot import new_figure_manager
 import numpy as np
 import random
 from copy import deepcopy
+from tqdm import trange
 
 from sklearn.linear_model import LinearRegression
 
@@ -103,7 +105,7 @@ class POSS(object):
 class Sparse_NSGA_II():
 
     def __init__(self, judge_fn=None, isLess=True, popSize=16):
-        if judge_fn is not None:
+        if judge_fn is None:
             raise ValueError('judging function at least one')
 
         self.judge_fns = judge_fn
@@ -122,16 +124,21 @@ class Sparse_NSGA_II():
     def _init_param(self, X, Y, popSize=None):
         if popSize is not None:
             self.popSize = popSize
+        self.X = X
+        self.Y = Y
 
         m, size = X.shape
         self.populations = [
-            np.random.choice([1, 0], size=size, P=[1 / size, 1 - 1 / size])
+            np.random.choice([1, 0], size=size, p=[1 / size, 1 - 1 / size])
             for i in range(self.popSize)
         ]
-        self.PopFitness = np.zeros((self.popSize, len(self.judge_fns)))
+        for idx in range(len(self.populations)):
+            while np.sum(self.populations[idx]) == 0:
+                self.populations[idx] = np.random.choice(
+                    [1, 0], size=size, p=[1/size, 1-1/size])
 
-        self.X = X
-        self.Y = Y
+        self.PopFitness = [self.getFitness(
+            self.X, self.Y, pop, self.judge_fns) for pop in self.populations]
 
     @staticmethod
     def isDomiated(x_fitness, y_fitness, less=True):
@@ -159,6 +166,8 @@ class Sparse_NSGA_II():
         rank = np.zeros(popSize)
         newfront = [[]]
 
+        # print(len(self.populations), len(self.PopFitness))
+
         for x in range(popSize):
             S[x] = []
             n[x] = 0
@@ -176,7 +185,7 @@ class Sparse_NSGA_II():
                 if x not in newfront[0]:
                     newfront[0].append(x)
 
-        i = 1
+        i = 0
         while newfront[i] != []:
             Q = []
             for x in newfront[i]:
@@ -189,14 +198,16 @@ class Sparse_NSGA_II():
             i += 1
             newfront.append(Q)
 
-        print(newfront)
+        del newfront[-1]
+
+        # print(newfront)
         return newfront
 
     def get_crowdingDist(self, frontSols):
         """
             Parameters:
                 frontSols: [idx1, idx2, ...] with same rank
-            
+
             Return :
                 dist: {idx: dist, ...}
         """
@@ -206,32 +217,101 @@ class Sparse_NSGA_II():
 
         front = [(idx, self.PopFitness[idx]) for idx in frontSols]
 
-        for f in range(len(self.PopFitness)):
+        if len(front) <= 2:
+            dist[front[0][0]] = np.inf
+            dist[front[-1][0]] = np.inf
+            return dist
+
+        for f in range(len(self.judge_fns)):
             front = sorted(front, key=lambda x: x[-1][f])
-            dist[front[0]] = np.inf
-            dist[front[-1]] = np.inf
+            dist[front[0][0]] = np.inf
+            dist[front[-1][0]] = np.inf
 
             fitness = [item[-1][f] for item in front]
 
-            for j in range(1, len(self.PopFitness) - 1):
-                dist[j] += (front[j + 1][-1][f] -
-                            front[j - 1][-1][f]) / max(fitness) - min(fitness)
+            for j in range(1, len(front) - 1):
+                dist[front[j][0]] += (front[j + 1][-1][f] -
+                                      front[j - 1][-1][f]) / max(fitness) - min(fitness)
 
         return dist
 
+    @staticmethod
+    def getFitness(X, Y, mask, fns):
+        popFitness = [fn(X, Y, mask) for fn in fns]
+        popFitness = np.array(popFitness)
+        return popFitness
+
     # TODO: add evolution algorithm
-    def get_newPopulation(self):
+    def genNewPopulation(self):
         """
-            parent selection: binary tournament
+            parent selection: binary tourant
             crossover: one point
             surviver: N + N selection
         """
-        pass
+        offspring = []
+        offspringFit = []
+        _, featureNum = self.X.shape
 
-    def run(self, X, Y, popSize=None):
+        for i in range(self.popSize):
+            idx = random.randint(0, featureNum)
+            tmp = random.choices(self.populations, k=2)
+            # print(type(tmp[0]), tmp)
+            newOffspring = np.concatenate((tmp[0][:idx],
+                                          tmp[1][idx:]), axis=0)  # crossover
+            # print(newOffspring)
+            newOffspring += np.random.choice(
+                [1, 0],
+                size=featureNum,
+                p=[1 / featureNum, 1 - 1 / featureNum])  # mutation
+
+            while np.sum(newOffspring) == 0:
+                newOffspring = np.random.choice([0, 1], size=featureNum, p=[
+                                                1/featureNum, 1-1/featureNum])
+            # newOffspring = np.array(newOffspring)
+
+            offspring.append(newOffspring)
+            # print(np.sum(newOffspring), newOffspring)
+
+            offspringFit.append(
+                self.getFitness(self.X, self.Y, newOffspring, self.judge_fns))
+
+        # offspringFit = np.array(offspringFit)
+        lassPop = deepcopy(self.populations)
+        self.populations += offspring
+        self.PopFitness += offspringFit
+        # self.PopFitness = np.concatenate((self.PopFitness, offspringFit),
+        #  axis=0)
+
+        fronts = self.fast_non_dominated_sort()
+        nextPop = []
+        cnt = 0
+        for front in fronts:
+            dist = self.get_crowdingDist(front)
+            dist = sorted(dist.items(), key=lambda x: x[1], reverse=True)
+            for i in range(self.popSize - cnt):
+                if i < len(front):
+                    nextPop.append(self.populations[dist[i][0]])
+                else:
+                    break
+            cnt = len(nextPop)
+
+        assert len(nextPop) == self.popSize
+        self.populations = nextPop
+        self.PopFitness = [
+            self.getFitness(self.X, self.Y, pop, self.judge_fns)
+            for pop in self.populations
+        ]
+        # self.PopFitness = np.array(self.PopFitness)
+
+    def run(self, X, Y, popSize=None, T=1000):
         self._init_param(X, Y, popSize)
 
-        pass
+        for i in trange(T):
+            self.genNewPopulation()
+            # if i % 100 == 0:
+            #     print(f"{i}/{T}")
+
+        return self.populations, self.PopFitness
 
 
 class Sparse_MOEAD():
