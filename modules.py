@@ -53,7 +53,7 @@ class POSS(object):
                 offspringFit[0] = np.NINF
             else:
                 """
-                    math: SMC = (var{z} - mse{z}) / var{z} => 1 - mse{z} 
+                    math: SMC = (var{z} - mse{z}) / var{z} => 1 - mse{z}
                     if E[x] = 0, var[x] = 1
                 """
                 lr = LinearRegression()
@@ -135,10 +135,12 @@ class Sparse_NSGA_II():
         for idx in range(len(self.populations)):
             while np.sum(self.populations[idx]) == 0:
                 self.populations[idx] = np.random.choice(
-                    [1, 0], size=size, p=[1/size, 1-1/size])
+                    [1, 0], size=size, p=[1 / size, 1 - 1 / size])
 
-        self.PopFitness = [self.getFitness(
-            self.X, self.Y, pop, self.judge_fns) for pop in self.populations]
+        self.PopFitness = [
+            self.getFitness(self.X, self.Y, pop, self.judge_fns)
+            for pop in self.populations
+        ]
 
     @staticmethod
     def isDomiated(x_fitness, y_fitness, less=True):
@@ -230,8 +232,8 @@ class Sparse_NSGA_II():
             fitness = [item[-1][f] for item in front]
 
             for j in range(1, len(front) - 1):
-                dist[front[j][0]] += (front[j + 1][-1][f] -
-                                      front[j - 1][-1][f]) / max(fitness) - min(fitness)
+                dist[front[j][0]] += (front[j + 1][-1][f] - front[j - 1][-1][f]
+                                      ) / max(fitness) - min(fitness)
 
         return dist
 
@@ -256,8 +258,8 @@ class Sparse_NSGA_II():
             idx = random.randint(0, featureNum)
             tmp = random.choices(self.populations, k=2)
             # print(type(tmp[0]), tmp)
-            newOffspring = np.concatenate((tmp[0][:idx],
-                                          tmp[1][idx:]), axis=0)  # crossover
+            newOffspring = np.concatenate((tmp[0][:idx], tmp[1][idx:]),
+                                          axis=0)  # crossover
             # print(newOffspring)
             newOffspring += np.random.choice(
                 [1, 0],
@@ -265,8 +267,10 @@ class Sparse_NSGA_II():
                 p=[1 / featureNum, 1 - 1 / featureNum])  # mutation
 
             while np.sum(newOffspring) == 0:
-                newOffspring = np.random.choice([0, 1], size=featureNum, p=[
-                                                1/featureNum, 1-1/featureNum])
+                newOffspring = np.random.choice(
+                    [0, 1],
+                    size=featureNum,
+                    p=[1 / featureNum, 1 - 1 / featureNum])
             # newOffspring = np.array(newOffspring)
 
             offspring.append(newOffspring)
@@ -316,11 +320,148 @@ class Sparse_NSGA_II():
 
 class Sparse_MOEAD():
 
-    def __init__(self):
+    def __init__(self, fns=None, popSize=10, t=None):
+        if fns is None:
+            raise ValueError("judge functions can't be none")
+
+        self.fns = fns
+        self.popSize = popSize
+
+        self.maxIterNum = 50
+        self.tSize = None
+        if t is None:
+            self.tSize = 5
+        elif t < 1:
+            raise ValueError("Neighbors's num must greater than 1")
+        else:
+            self.tSize = t  # neightbors's num
+        self.EP_ID = []
+        self.EP_FV = []
+
+        # following need be initilazed
+        self.featureNum = None
+        self.X = None
+        self.Y = None
+
+        self.population = []
+        self.popFV = []
+        self.W = None  # (m, )
+        self.W_BI_T = []
+        self.Z = None
+
+    def _init_params(self, X, Y):
+        self.X = X
+        self.Y = Y
+        self.featureNum = X.shape[1]
+
+        self.W = np.random.rand(len(self.fns))
+        self.W /= np.sum(self.W)
+
+        for bi_idx in range(self.W.shape[0]):
+            Bi = self.W[bi_idx]
+            dist = np.sum((self.W - Bi)**2, axis=1)
+            Bt = np.argsort(dist)
+            Bt = Bt[1:self.tSize + 1]  # dist(x,x) must be 0
+            self.W_BI_T.append(Bt)
+        self.W_BI_T = np.array(self.W_BI_T)
+
+        self.population = [
+            np.random.choice([0, 1],
+                             size=(self.popSize, X.shape[1]),
+                             p=[1 / X.shape[1], 1 - 1 / X.shape[1]])
+            for i in range(X.shape[1])
+        ]
+
+        for pop in self.population:
+            popFV = self.getFitness(pop, self.fns)
+            self.popFV.append(popFV)
+
+        self.Z = np.zeros_like(self.W)
+
+    def getFitness(self, pop, fns):
         pass
 
-    def _init_params(self):
-        pass
+    def genNextY(self, wi, pop, popk, popl):
+        pops = [pop, popk, popl]
+        cbxfs = [self.cbxf(wi, pop) for pop in pops]
+        cbxfs = np.array(cbxfs)
+        best = np.argmin(cbxfs)
 
-    def run(self):
-        pass
+        Y0 = pops[best]
+
+        # crossover & mutation
+        offsprings = []
+        for i in range(len(pops)):
+            crossIdx = np.random.randint(len(pops[i]))
+            next = (i + 1) % len(pops)
+            offspring = np.concatenate(
+                (pops[i][:crossIdx], pops[next][crossIdx:]), axis=0)
+            while np.sum(offspring) == 0:
+                offspring = np.random.choice(
+                    [0, 1],
+                    size=self.featureNum,
+                    p=[1 / self.featureNum, 1 - 1 / self.featureNum])
+            offsprings.append(offspring)
+
+        tmp = [pop, popk, popl] + offsprings
+        cbxfs = [self.cbxf(wi, pop) for pop in tmp]
+        cbxfs = np.array(cbxfs)
+        best = np.argmin(cbxfs)
+        Y1 = tmp[best]
+
+        fn = np.random.randint(len(self.fns))
+        if np.random.rand() < 0.5:
+            FY0 = self.getFitness(Y0, self.fns[fn])
+            FY1 = self.getFitness(Y1, self.fns[fn])
+            if FY0 < FY1:
+                return Y0
+            else:
+                return Y1
+        return Y1
+
+    @staticmethod
+    def cbxf_dist(w, f, z):
+        return w * np.abs(f - z)
+
+    def cbxf(self, popId, pop):
+        max = self.Z[0]
+        ri = self.W[popId]
+        FV_x = self.getFitness(pop, self.fns)
+        for i in range(len(self.fns)):
+            fi = self.cbxf_dist(ri[i], FV_x[i], self.Z[i])
+            if fi > max:
+                max = fi
+        return max
+
+    def run(self, X, Y, maxIterNum=None):
+        if maxIterNum is not None:
+            self.maxIterNum = maxIterNum
+
+        self._init_params(X, Y)
+
+        for loopN in range(self.maxIterNum):
+            for popId, pop in enumerate(self.population):
+                """
+                    1: preproduction y
+                    2: Improvement on y
+                    3: Update Z
+                    4: Update Neighbors' solutions
+                """
+                Bi = self.W_BI_T[popId]
+                k = np.random.randint(0, self.tSize)
+                l = np.random.randint(0, self.tSize)
+                idk = Bi[k]
+                idl = Bi[l]
+                popk = self.population[idk]
+                popl = self.population[idl]
+
+                Y = self.genNextY(popId, pop, popk, popl)
+
+                cbxf_x = self.cbxf(popId, pop)
+                cbxf_y = self.cbxf(popId, Y)
+
+                if cbxf_y < cbxf_x:
+                    # TODO: update pop, z, EP[ID/FV]
+                    pass
+
+        return self.population[self.EP_ID, :], self.popFV[self.EP_ID, :]

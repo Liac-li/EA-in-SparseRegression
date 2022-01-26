@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import random
+
 random.seed(114514)
 
 
@@ -17,8 +18,10 @@ def f1(X, y, mask):
     mse = np.mean((lr.predict(tmp) - y)**2)
     return mse
 
+
 def f2(X, Y, mask):
     return np.sum(mask)
+
 
 data_name = 'sonar'
 data_set = DataLoader('./data')
@@ -29,7 +32,7 @@ if __name__ == '__main__':
     module = Sparse_NSGA_II(judge_fn=[f1, f2])
 
     iterTimes = 10
-    tmp = [] 
+    tmp = []
     for i in range(iterTimes):
         tmp.append(module.run(x, y, popSize=32, T=5000))
 
@@ -43,4 +46,3 @@ if __name__ == '__main__':
     plt.ylabel('f2')
     plt.title(data_name)
     plt.show()
-
