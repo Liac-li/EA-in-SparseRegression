@@ -320,12 +320,13 @@ class Sparse_NSGA_II():
 
 class Sparse_MOEAD():
 
-    def __init__(self, fns=None, popSize=10, t=None):
+    def __init__(self, fns=None, popSize=10, t=None, isLess=True):
         if fns is None:
             raise ValueError("judge functions can't be none")
 
         self.fns = fns
         self.popSize = popSize
+        self.isLess = isLess
 
         self.maxIterNum = 50
         self.tSize = None
@@ -335,16 +336,16 @@ class Sparse_MOEAD():
             raise ValueError("Neighbors's num must greater than 1")
         else:
             self.tSize = t  # neightbors's num
-        self.EP_ID = []
-        self.EP_FV = []
+        self.EP_ID = []  # [idx1, idx2, ...]
+        self.EP_FV = []  # [np.array_idx1, np.array_idx2, ...]
 
         # following need be initilazed
         self.featureNum = None
         self.X = None
         self.Y = None
 
-        self.population = []
-        self.popFV = []
+        self.population = []  # [np.array1, np.array2, ...]
+        self.popFV = []  # [np.array1, np.array2, ...]
         self.W = None  # (m, )
         self.W_BI_T = []
         self.Z = None
@@ -378,8 +379,25 @@ class Sparse_MOEAD():
 
         self.Z = np.zeros_like(self.W)
 
+        # init EP
+        for popIdx in range(self.popSize):
+            cnt = 0
+            FV_cur = self.getFitness(self.population[popIdx], self.fns)
+            for i in range(self.popSize):
+                FV_i = self.getFitness(self.population[i], self.fns)
+                if popIdx != i and self.isDominated(FV_i, FV_cur):
+                    cnt += 1
+
+            if cnt == 0:
+                self.EP_ID.append(popIdx)
+                self.EP_FV.append(FV_cur)
+
     def getFitness(self, pop, fns):
-        pass
+        FV = []
+        for fn in fns:
+            FV.append(fn(pop, self.X, self.Y))
+
+        return np.array(FV)
 
     def genNextY(self, wi, pop, popk, popl):
         pops = [pop, popk, popl]
@@ -433,13 +451,93 @@ class Sparse_MOEAD():
                 max = fi
         return max
 
+    @staticmethod
+    def isDominated(FV_x, FV_y, isLess=True):
+        """
+            return if x dominate y
+        """
+        cnt = 0
+        if isLess:
+            for xv, yv in zip(FV_x, FV_y):
+                if xv < yv:
+                    cnt += 1
+                else:
+                    break
+        else:
+            for xv, yv in zip(FV_x, FV_y):
+                if xv > yv:
+                    cnt += 1
+                else:
+                    break
+
+        if cnt != 0:
+            return True
+        return False
+
+    def updateEP(self, popId, FV_pop, onlyId=False):
+        if not onlyId:
+            if popId in self.EP_ID:
+                idx = self.EP_ID.index(popId)
+                self.EP_FV[idx] = FV_pop
+            return
+
+        n = 0  # new y be dominated times
+        FV_y = self.popFV[popId]
+        deleted = []
+
+        for ep_idx in range(len(self.EP_FV)):
+            if self.isDominate(FV_y, self.EP_FV[ep_idx], self.isLess):
+                deleted.append(ep_idx)
+                break
+            if n != 0:
+                break
+
+            if self.isDominated(self.EP_FV[ep_idx], FV_y, self.isLess):
+                n += 1
+
+        new_EP_ID = []
+        new_EP_FV = []
+        for remain_idx in range(len(self.EP_ID)):
+            if remain_idx not in deleted:
+                new_EP_ID.append(self.EP_ID[remain_idx])
+                new_EP_FV.append(self.EP_FV[remain_idx])
+
+        if n == 0:  # ! y is not dominated
+            if popId not in new_EP_ID:  # add new y to EP
+                new_EP_ID.append(popId)
+                new_EP_FV.append(FV_pop)
+            else:
+                idx = new_EP_ID.index(popId)
+                new_EP_FV[idx] = FV_pop
+
+        self.EP_ID = new_EP_ID
+        self.EP_FV = new_EP_FV
+
+    def updateZ(self, popId, FV_pop):
+        # in our problem, z be all zeros is enough
+        pass
+
+    def updateNeighbors(self, popId, pop):
+        Bi = self.W_BI_T[popId]
+
+        for bi_idx in Bi:
+            X_bi = self.population[bi_idx]
+            dist_x = self.cbxf(bi_idx, X_bi)
+            dist_y = self.cbxf(bi_idx, pop)
+
+            if dist_y <= dist_x:
+                self.population[bi_idx] = pop
+                FV_y = self.getFitness(pop, self.fns)
+                self.popFV[bi_idx] = FV_y
+                self.updateEP(bi_idx, FV_y)
+
     def run(self, X, Y, maxIterNum=None):
         if maxIterNum is not None:
             self.maxIterNum = maxIterNum
 
         self._init_params(X, Y)
 
-        for loopN in range(self.maxIterNum):
+        for loopN in trange(self.maxIterNum):
             for popId, pop in enumerate(self.population):
                 """
                     1: preproduction y
@@ -462,6 +560,14 @@ class Sparse_MOEAD():
 
                 if cbxf_y < cbxf_x:
                     # TODO: update pop, z, EP[ID/FV]
-                    pass
+                    FV_y = self.getFitness(Y, self.fns)
+
+                    self.updateEP(popId, FV_y)
+                    self.updateZ(popId, FV_y)
+
+                    if np.abs(cbxf_y - cbxf_x) < 1e-6:
+                        self.updateEP(popId, FV_y, onlyId=True)
+
+                    self.updateNeighbors(popId, Y)
 
         return self.population[self.EP_ID, :], self.popFV[self.EP_ID, :]
