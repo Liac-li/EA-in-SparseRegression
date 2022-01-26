@@ -39,7 +39,7 @@ class POSS(object):
         T = math.ceil(n * k * k * 2 * np.exp(1))  # total iterations' number
         print(f'[Log] Iter Times T: {T}')
 
-        for i in range(T):
+        for i in trange(T):
 
             offspring = np.abs(
                 population[random.randint(0, popSize - 1), :] -
@@ -346,20 +346,72 @@ class Sparse_MOEAD():
 
         self.population = []  # [np.array1, np.array2, ...]
         self.popFV = []  # [np.array1, np.array2, ...]
-        self.W = None  # (m, )
+        self.W = []  # (m, )
         self.W_BI_T = []
         self.Z = None
+        
+    def _init_w(self, popSize, fn_size):
+        def perm(sequence):
+            # ！！！ 序列全排列，且无重复
+            l = sequence
+            if (len(l) <= 1):
+                return [l]
+            r = []
+            for i in range(len(l)):
+                if i != 0 and sequence[i - 1] == sequence[i]:
+                    continue
+                else:
+                    s = l[:i] + l[i + 1:]
+                    p = perm(s)
+                    for x in p:
+                        r.append(l[i:i + 1] + x)
+            return r
+         
+        H = popSize-1
+        m = fn_size
+
+        sequence = []
+        for ii in range(H):
+            sequence.append(0)
+        for jj in range(m - 1):
+            sequence.append(1)
+        ws = []
+
+        pe_seq = perm(sequence)
+        for sq in pe_seq:
+            s = -1
+            weight = []
+            for i in range(len(sq)):
+                if sq[i] == 1:
+                    w = i - s
+                    w = (w - 1) / H
+                    s = i
+                    weight.append(w)
+            nw = H + m - 1 - s
+            nw = (nw - 1) / H
+            weight.append(nw)
+            if weight not in ws:
+                ws.append(weight)
+
+        ws = np.array(ws, dtype=np.float32)
+        print(ws.shape)
+        return ws
 
     def _init_params(self, X, Y):
         self.X = X
         self.Y = Y
         self.featureNum = X.shape[1]
 
-        self.W = np.random.rand(len(self.fns))
-        self.W /= np.sum(self.W)
+        # for i in range(self.popSize):
+        #     tmp = np.random.rand(len(self.fns))
+        #     tmp /= np.sum(tmp)
+        #     self.W.append(tmp)
+        # self.W = np.array(self.W)
+        self.W = self._init_w(self.popSize, len(self.fns))
 
         for bi_idx in range(self.W.shape[0]):
             Bi = self.W[bi_idx]
+            # print(self.W.shape, Bi.shape)
             dist = np.sum((self.W - Bi)**2, axis=1)
             Bt = np.argsort(dist)
             Bt = Bt[1:self.tSize + 1]  # dist(x,x) must be 0
@@ -368,10 +420,14 @@ class Sparse_MOEAD():
 
         self.population = [
             np.random.choice([0, 1],
-                             size=(self.popSize, X.shape[1]),
-                             p=[1 / X.shape[1], 1 - 1 / X.shape[1]])
-            for i in range(X.shape[1])
+                             size=(self.featureNum),
+                             p=[1 / self.featureNum, 1 - 1 / self.featureNum])
+            for i in range(self.popSize)
         ]
+        for idx in range(self.popSize):
+            while np.sum(self.population[idx]) == 0:
+                self.population[idx] = np.random.choice(
+                    [1, 0], size=self.featureNum, p=[1 / self.featureNum, 1 - 1 / self.featureNum])
 
         for pop in self.population:
             popFV = self.getFitness(pop, self.fns)
@@ -393,6 +449,9 @@ class Sparse_MOEAD():
                 self.EP_FV.append(FV_cur)
 
     def getFitness(self, pop, fns):
+        # print(pop.shape)
+        if not isinstance(fns, list):
+            fns = [fns]
         FV = []
         for fn in fns:
             FV.append(fn(pop, self.X, self.Y))
@@ -427,29 +486,27 @@ class Sparse_MOEAD():
         best = np.argmin(cbxfs)
         Y1 = tmp[best]
 
-        fn = np.random.randint(len(self.fns))
-        if np.random.rand() < 0.5:
-            FY0 = self.getFitness(Y0, self.fns[fn])
-            FY1 = self.getFitness(Y1, self.fns[fn])
-            if FY0 < FY1:
+        if np.random.rand() < 0.42:
+            idx = np.random.randint(len(self.fns))
+            FY0 = self.getFitness(Y0, self.fns)[idx]
+            FY1 = self.getFitness(Y1, self.fns)[idx]
+            if FY0 < FY1 and self.isLess: 
                 return Y0
-            else:
-                return Y1
+            elif FY0 > FY1 and not self.isLess:
+                return Y0
         return Y1
 
     @staticmethod
     def cbxf_dist(w, f, z):
+        # print(w.shape, f.shape, z.shape)
         return w * np.abs(f - z)
 
     def cbxf(self, popId, pop):
-        max = self.Z[0]
         ri = self.W[popId]
         FV_x = self.getFitness(pop, self.fns)
-        for i in range(len(self.fns)):
-            fi = self.cbxf_dist(ri[i], FV_x[i], self.Z[i])
-            if fi > max:
-                max = fi
-        return max
+        fi = np.max(self.cbxf_dist(ri, FV_x, self.Z[popId]))
+        # print(fi)
+        return fi
 
     @staticmethod
     def isDominated(FV_x, FV_y, isLess=True):
@@ -569,5 +626,7 @@ class Sparse_MOEAD():
                         self.updateEP(popId, FV_y, onlyId=True)
 
                     self.updateNeighbors(popId, Y)
+                    
+        res_pop = [self.population[ep_idx] for ep_idx in self.EP_ID] 
 
-        return self.population[self.EP_ID, :], self.popFV[self.EP_ID, :]
+        return res_pop, self.EP_FV
