@@ -23,7 +23,7 @@ def f2(X, Y, mask):
     return np.sum(mask)
 
 
-data_name = 'sonar'
+data_name = 'triazines'
 data_set = DataLoader('./data')
 
 if __name__ == '__main__':
@@ -34,15 +34,22 @@ if __name__ == '__main__':
     iterTimes = 10
     tmp = []
     for i in range(iterTimes):
-        tmp.append(module.run(x, y, popSize=32, T=5000))
+        tmp.append(module.run(x, y, popSize=32, T=500))
 
-    _, fitness = random.choice(tmp)
+    _, fitness, fits = random.choice(tmp)
     Xs = [i[0] for i in fitness]
     Ys = [i[1] for i in fitness]
 
-    plt.scatter(Xs, Ys, facecolor='none', edgecolor='b')
+    fig, (ax1, ax2) = plt.subplots(1, 2)
 
-    plt.xlabel('f1')
-    plt.ylabel('f2')
-    plt.title(data_name)
+    ax1.scatter(Xs, Ys, facecolor='none', edgecolor='b')
+    ax1.set_xlabel('f1')
+    ax1.set_ylabel('f2')
+    # ax1.set_title(data_name)
+
+    ax2.plot(fits, '.--')
+    ax2.set_xlabel('Evolution Loop num')
+    ax2.set_ylabel('mean of all functions')
+
+    plt.title(f'{data_name}_nsga-ii')
     plt.show()

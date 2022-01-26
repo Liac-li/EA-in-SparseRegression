@@ -9,7 +9,6 @@ from sklearn.linear_model import LinearRegression
 
 
 class POSS(object):
-
     def __init__(self, keepMse=False):
         self.validMethods = {'mse': self.POSS_MSE, 'smc': self.POSS_SMC}
         self.k = 8
@@ -94,16 +93,15 @@ class POSS(object):
         maxVal = np.max(fitness[validIdx, 0])
         seq = fitness[:, 0] >= maxVal
         res = population[seq, :][0]
-        print(res)
+        # print(res)
 
-        return res, self.cache
+        return res, self.cache, fitness[validIdx, :]
 
     def POSS_MSE(self, x, y, k=None):
         raise NotImplementedError
 
 
 class Sparse_NSGA_II():
-
     def __init__(self, judge_fn=None, isLess=True, popSize=16):
         if judge_fn is None:
             raise ValueError('judging function at least one')
@@ -310,16 +308,19 @@ class Sparse_NSGA_II():
     def run(self, X, Y, popSize=None, T=1000):
         self._init_param(X, Y, popSize)
 
+        fit = []
         for i in trange(T):
             self.genNewPopulation()
+
+            tmp = [np.sum(popFit) for popFit in self.PopFitness]
+            fit.append(np.mean(tmp))
             # if i % 100 == 0:
             #     print(f"{i}/{T}")
 
-        return self.populations, self.PopFitness
+        return self.populations, self.PopFitness, fit
 
 
 class Sparse_MOEAD():
-
     def __init__(self, fns=None, popSize=10, t=None, isLess=True):
         if fns is None:
             raise ValueError("judge functions can't be none")
@@ -349,7 +350,7 @@ class Sparse_MOEAD():
         self.W = []  # (m, )
         self.W_BI_T = []
         self.Z = None
-        
+
     def _init_w(self, popSize, fn_size):
         def perm(sequence):
             # ！！！ 序列全排列，且无重复
@@ -366,8 +367,8 @@ class Sparse_MOEAD():
                     for x in p:
                         r.append(l[i:i + 1] + x)
             return r
-         
-        H = popSize-1
+
+        H = popSize - 1
         m = fn_size
 
         sequence = []
@@ -427,7 +428,9 @@ class Sparse_MOEAD():
         for idx in range(self.popSize):
             while np.sum(self.population[idx]) == 0:
                 self.population[idx] = np.random.choice(
-                    [1, 0], size=self.featureNum, p=[1 / self.featureNum, 1 - 1 / self.featureNum])
+                    [1, 0],
+                    size=self.featureNum,
+                    p=[1 / self.featureNum, 1 - 1 / self.featureNum])
 
         for pop in self.population:
             popFV = self.getFitness(pop, self.fns)
@@ -490,7 +493,7 @@ class Sparse_MOEAD():
             idx = np.random.randint(len(self.fns))
             FY0 = self.getFitness(Y0, self.fns)[idx]
             FY1 = self.getFitness(Y1, self.fns)[idx]
-            if FY0 < FY1 and self.isLess: 
+            if FY0 < FY1 and self.isLess:
                 return Y0
             elif FY0 > FY1 and not self.isLess:
                 return Y0
@@ -543,7 +546,7 @@ class Sparse_MOEAD():
         deleted = []
 
         for ep_idx in range(len(self.EP_FV)):
-            if self.isDominate(FV_y, self.EP_FV[ep_idx], self.isLess):
+            if self.isDominated(FV_y, self.EP_FV[ep_idx], self.isLess):
                 deleted.append(ep_idx)
                 break
             if n != 0:
@@ -594,6 +597,7 @@ class Sparse_MOEAD():
 
         self._init_params(X, Y)
 
+        ep_fv_fit = []
         for loopN in trange(self.maxIterNum):
             for popId, pop in enumerate(self.population):
                 """
@@ -626,7 +630,10 @@ class Sparse_MOEAD():
                         self.updateEP(popId, FV_y, onlyId=True)
 
                     self.updateNeighbors(popId, Y)
-                    
-        res_pop = [self.population[ep_idx] for ep_idx in self.EP_ID] 
 
-        return res_pop, self.EP_FV
+            tmp = [np.sum(fv) for fv in self.EP_FV]
+            ep_fv_fit.append(np.mean(tmp))
+
+        res_pop = [self.population[ep_idx] for ep_idx in self.EP_ID]
+
+        return res_pop, self.EP_FV, ep_fv_fit

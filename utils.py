@@ -5,7 +5,6 @@ import numpy as np
 
 
 class DataLoader(object):
-
     def __init__(self, data_folder):
         self.path = data_folder
         self.data_pool = {
@@ -35,12 +34,12 @@ class DataLoader(object):
         data_path = os.path.join(self.path,
                                  self.data_pool[dataset_name.lower()])
 
-        pd = pandas.read_csv(data_path)
+        pd = pandas.read_csv(data_path, delimiter=',')
         pd[pd.columns[-1]] = pd[pd.columns[-1]].apply(self.coder)
         pd.fillna(0)
 
-        x = pd[pd.columns[:-2]].to_numpy(dtype=np.float32)
-        y = pd[pd.columns[-1]].to_numpy(dtype=np.float32)
+        x = pd[pd.columns[:-1]].to_numpy(dtype=np.float128)
+        y = pd[pd.columns[-1]].to_numpy(dtype=np.float128)
         y = y[..., np.newaxis]
         # print(y)
         x[x != x] = 0
